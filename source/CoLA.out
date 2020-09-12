@@ -1,0 +1,163 @@
+I0911 18:46:46.624893 140676938606336 tokenization_utils.py:1022] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at /home/zhouxukun/.cache/torch/transformers/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+I0911 18:46:57.941693 140676938606336 tokenization_utils.py:1022] loading file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt from cache at /home/zhouxukun/.cache/torch/transformers/26bc1ad6c0ac742e9b52263248f6d0f00068293b33709fae12320c0e35ccfbbb.542ce4285a40d23a559526243235df47c5f75c197f04f37d1a0c124c32c9a084
+I0911 18:47:07.158008 140676938606336 configuration_utils.py:265] loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json from cache at /home/zhouxukun/.cache/torch/transformers/4dad0251492946e18ac39290fcfe91b89d370fee250efe9521476438fe8ca185.7156163d5fdc189c3016baca0775ffce230789d7fa2a42ef516483e4ca884517
+I0911 18:47:07.158480 140676938606336 configuration_utils.py:301] Model config BertConfig {
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "pad_token_id": 0,
+  "type_vocab_size": 2,
+  "vocab_size": 30522
+}
+
+I0911 18:47:12.959951 140676938606336 modeling_utils.py:650] loading weights file https://cdn.huggingface.co/bert-base-uncased-pytorch_model.bin from cache at /home/zhouxukun/.cache/torch/transformers/f2ee78bdd635b758cc0a12352586868bef80e47401abe4c4fcc3832421e7338b.36ca03ab34a1a5d5fa7bc3d03d55c4fa650fed07220e2eeebc06ce58d0e9a157
+training epoch  0
+loss: 0.5456832285914848
+
+TP:5602	,TN:667	FN:421	FP1861	
+
+M_score_train:0.2655859563372053
+
+eval epoch 0
+
+loss: 0.48740253529765387
+TP:692	,TN:94	FN:29	FP228	
+
+M_score_train:0.36052753798378867
+
+training epoch  1
+loss: 0.34327577399228937
+
+TP:5494	,TN:1828	FN:529	FP700	
+
+M_score_train:0.6487670684525134
+
+eval epoch 1
+
+loss: 0.44928825849836523
+TP:650	,TN:192	FN:71	FP130	
+
+M_score_train:0.5295712133064194
+
+training epoch  2
+loss: 0.18016747360937854
+
+TP:5747	,TN:2255	FN:276	FP273	
+
+M_score_train:0.8458942046010344
+
+eval epoch 2
+
+loss: 0.5506655980240215
+TP:651	,TN:191	FN:70	FP131	
+
+M_score_train:0.5290831606897504
+
+training epoch  3
+loss: 0.11453412118569406
+
+TP:5857	,TN:2377	FN:166	FP151	
+
+M_score_train:0.9111474578609721
+
+eval epoch 3
+
+loss: 0.47189765378381265
+TP:661	,TN:164	FN:60	FP158	
+
+M_score_train:0.47933610275431493
+
+training epoch  4
+loss: 0.0687292858970407
+
+TP:5939	,TN:2438	FN:84	FP90	
+
+M_score_train:0.9511084973519406
+
+eval epoch 4
+
+loss: 0.648045101852128
+TP:663	,TN:180	FN:58	FP142	
+
+M_score_train:0.5268023551875569
+
+training epoch  5
+loss: 0.06873213670150474
+
+TP:5941	,TN:2442	FN:82	FP86	
+
+M_score_train:0.952804548491892
+
+eval epoch 5
+
+loss: 0.9265837217822219
+TP:679	,TN:147	FN:42	FP175	
+
+M_score_train:0.47765307125471923
+
+training epoch  6
+loss: 0.05347010026227182
+
+TP:5944	,TN:2466	FN:79	FP62	
+
+M_score_train:0.9604952109079206
+
+eval epoch 6
+
+loss: 0.8681718987045866
+TP:657	,TN:177	FN:64	FP145	
+
+M_score_train:0.5051600900029769
+
+training epoch  7
+loss: 0.05081337380289003
+
+TP:5940	,TN:2485	FN:83	FP43	
+
+M_score_train:0.9648412016808718
+
+eval epoch 7
+
+loss: 0.8942983339568882
+TP:658	,TN:165	FN:63	FP157	
+
+M_score_train:0.47509771719900024
+
+training epoch  8
+loss: 0.04439836887229206
+
+TP:5967	,TN:2477	FN:56	FP51	
+
+M_score_train:0.9699725953259418
+
+eval epoch 8
+
+loss: 0.8973400847929897
+TP:658	,TN:162	FN:63	FP160	
+
+M_score_train:0.46691285994732895
+
+training epoch  9
+loss: 0.04872191119626331
+
+TP:5948	,TN:2468	FN:75	FP60	
+
+M_score_train:0.9621656647105539
+
+eval epoch 9
+
+loss: 0.8976740168802666
+TP:587	,TN:202	FN:134	FP120	
+
+M_score_train:0.4364389765985313
