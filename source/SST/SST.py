@@ -1,8 +1,8 @@
 import torch
 from transformers import BertModel
-class CoLA(torch.nn.Module):
+class SST(torch.nn.Module):
     def __init__(self,model_name,seq_len,hidden_num):
-        super(CoLA,self).__init__()
+        super(SST,self).__init__()
         self.Bert=BertModel.from_pretrained(model_name)
         self.out_layer1=torch.nn.Linear(hidden_num,hidden_num//2)
         self.out_layer2=torch.nn.Linear(hidden_num//2,2)

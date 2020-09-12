@@ -3,7 +3,7 @@ import torch
 from transformers import BertTokenizer
 
 
-class CoLA_reader(torch.utils.data.Dataset):
+class SST_reader(torch.utils.data.Dataset):
     """
         这个类是用来读取CoLA的分类数据集
     """
@@ -16,12 +16,12 @@ class CoLA_reader(torch.utils.data.Dataset):
         with open(path, 'r', encoding='utf-8') as f:
             start_indices=["[CLS]"]
             lines = f.readlines()
-            for line in lines:
+            for line in lines[1:]:
                 info = line.strip().split('\t')
-                assert (len(info) == 4)
-                self.sentence.append(info[3])
+                assert (len(info) == 2)
+                self.sentence.append(info[0])
                 self.label.append(int(info[1]))
-                tokens = self.token.tokenize(info[3])
+                tokens = self.token.tokenize(info[0])
                 tokens = self.token.convert_tokens_to_ids(start_indices+tokens)
                 mask = [1] * len(tokens)
                 while len(tokens) < padding_length:
@@ -39,6 +39,3 @@ class CoLA_reader(torch.utils.data.Dataset):
 
     def __getitem__(self, item):
         return self.label[item], self.mask[item], self.ids[item]
-
-
-# reader = CoLA_reader("../../glue_data/CoLA/examine.tsv", 46)
