@@ -1,8 +1,8 @@
 import torch
 from transformers import BertTokenizer
-class MNLI_reader(torch.utils.data.Dataset):
+class SNLI_reader(torch.utils.data.Dataset):
     def __init__(self,path,max_seq_len):
-        super(MNLI_reader,self).__init__()
+        super(SNLI_reader,self).__init__()
         self.tokens=[]
         self.mask=[]
         self.token_type=[]

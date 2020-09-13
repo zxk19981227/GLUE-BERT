@@ -18,11 +18,11 @@ def main(argv):
     train_data = SST_reader("../glue_data/SST-2/train.tsv",65)
     test_data=SST_reader("../glue_data/SST-2/dev.tsv",65)
     bert_name="bert-base-uncased"
-    learning_epoch=10
+    learning_epoch=3
     model=SST(bert_name,50,768)
     model=model.cuda()
     model.train()
-    optimizer=torch.optim.Adam(model.parameters(),5e-5)
+    optimizer=torch.optim.Adam(model.parameters(),2e-5)
     loader_train=torch.utils.data.DataLoader(train_data,batch_size=32,shuffle=True)
     model.zero_grad()
     optimizer.zero_grad()

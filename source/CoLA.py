@@ -56,6 +56,7 @@ def main(argv):
         M_score=compute_score(TP,TN,FN,FP)
         print("loss:",mean(loss_sum))
         print("\nTP:%s\t,TN:%s\tFN:%s\tFP%s\t\n"%(str(TP),str(TN),str(FN),str(FP)))
+        print("accuracy:%s"%str((TP+TN)/(TP+TN+FN+FP)))
         print("M_score_train:%s\n"%str(M_score))
         loader_test=torch.utils.data.DataLoader(test_data,batch_size=32,shuffle=False)
         model.eval()
@@ -79,6 +80,7 @@ def main(argv):
                 FP += torch.sum((pre == 1) & (label == 0)).cpu().item()
             print("loss:", mean(loss_sum))
             print("TP:%s\t,TN:%s\tFN:%s\tFP%s\t\n"%(str(TP), str(TN), str(FN), str(FP)))
+            print("accuracy:%s" % str((TP + TN) / (TP + TN + FN + FP)))
             M_score = compute_score(TP, TN, FN, FP)
             print("M_score_train:%s\n"%str(M_score))
 

@@ -8,6 +8,7 @@ class SST_reader(torch.utils.data.Dataset):
         这个类是用来读取CoLA的分类数据集
     """
     def __init__(self, path, padding_length):
+        super(SST_reader,self).__init__()
         self.sentence = []
         self.label = []
         self.ids = []

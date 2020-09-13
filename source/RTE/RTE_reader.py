@@ -1,21 +1,21 @@
 import torch
 from transformers import BertTokenizer
-class MNLI_reader(torch.utils.data.Dataset):
+class RTE_reader(torch.utils.data.Dataset):
     def __init__(self,path,max_seq_len):
-        super(MNLI_reader,self).__init__()
+        super(RTE_reader,self).__init__()
         self.tokens=[]
         self.mask=[]
         self.token_type=[]
         self.label=[]
-        label_to_dict={"neutral":0,"entailment":1,"contradiction":2}
+        label_to_dict={"not_entailment":0,"entailment":1}
         self.tokenize=BertTokenizer.from_pretrained("bert-base-uncased")
         with open(path,'r',encoding='utf-8') as f:
             lines=f.readlines()
             for line in lines[1:]:
                 line=line.split('\t')
-                sen1=self.tokenize.tokenize(line[8].strip())
-                sen2=self.tokenize.tokenize(line[9].strip())
-                label=label_to_dict[line[11].strip()]
+                sen1=self.tokenize.tokenize(line[1].strip())
+                sen2=self.tokenize.tokenize(line[2].strip())
+                label=label_to_dict[line[3].strip()]
                 token=["CLS"]
                 segment=[0]
                 mask=[1]
@@ -58,5 +58,5 @@ class MNLI_reader(torch.utils.data.Dataset):
         return len(self.tokens)
     def __getitem__(self, item):
         return self.label[item],self.mask[item],self.token_type[item],self.tokens[item]
-# reader=MNLI_reader("../../glue_data/MNLI/examine.tsv",200)
+# reader=RTE_reader("../../glue_data/RTE/dev.tsv",200)
 
