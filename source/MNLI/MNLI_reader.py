@@ -1,12 +1,17 @@
 import torch
 from transformers import BertTokenizer
 class MNLI_reader(torch.utils.data.Dataset):
-    def __init__(self,path,max_seq_len):
+    def __init__(self,path):
         super(MNLI_reader,self).__init__()
         self.tokens=[]
         self.mask=[]
         self.token_type=[]
         self.label=[]
+        tmp_tokens=[]
+        tmp_mask=[]
+        tmp_token_type=[]
+        tmp_label=[]
+        max_len=0
         label_to_dict={"neutral":0,"entailment":1,"contradiction":2}
         self.tokenize=BertTokenizer.from_pretrained("bert-base-uncased")
         with open(path,'r',encoding='utf-8') as f:
@@ -34,20 +39,25 @@ class MNLI_reader(torch.utils.data.Dataset):
                 segment.append(1)
                 mask.append(1)
                 token=self.tokenize.convert_tokens_to_ids(token)
-                if len(token)>max_seq_len:
-                    token=token[:max_seq_len]
-                    mask=mask[:max_seq_len]
-                    segment=segment[:max_seq_len]
-                while len(token)<max_seq_len:
-                    token.append(0)
-                    mask.append(0)
-                    segment.append(0)
+                if len(token)>max_len:
+                    max_len=len(token)
                 assert len(token)==len(mask)
                 assert len(mask)==len(segment)
+                tmp_label.append(label)
+                tmp_mask.append(mask)
+                tmp_tokens.append(token)
+                tmp_token_type.append(segment)
+            for label, mask, type, tok in zip(tmp_label, tmp_mask, tmp_token_type, tmp_tokens):
+                while len(tok) < max_len:
+                    mask.append(0)
+                    tok.append(0)
+                    type.append(0)
                 self.label.append(label)
+                self.tokens.append(tok)
                 self.mask.append(mask)
-                self.tokens.append(token)
-                self.token_type.append(segment)
+                self.token_type.append(type)
+                assert len(tok) == len(mask)
+                assert len(mask) == len(type)
         self.label=torch.tensor(self.label)
         self.mask=torch.tensor(self.mask)
         self.token_type=torch.tensor(self.token_type)
@@ -58,5 +68,5 @@ class MNLI_reader(torch.utils.data.Dataset):
         return len(self.tokens)
     def __getitem__(self, item):
         return self.label[item],self.mask[item],self.token_type[item],self.tokens[item]
-# reader=MNLI_reader("../../glue_data/MNLI/examine.tsv",200)
+# reader=MNLI_reader("../../glue_data/MNLI/examine.tsv")
 

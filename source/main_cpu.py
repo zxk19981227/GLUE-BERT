@@ -41,7 +41,7 @@ def train(epoch, rate, model_name, hidden_num, label_number, reader, train_path,
     :param accuracy_function:
     """
     model = Model(model_name, hidden_num, label_number, loss_function)
-    model = model.cuda()
+    # model = model.cuda()
     model.train()
     optimizer = torch.optim.Adam(model.parameters(),rate)
     train_set = reader(train_path[0])
@@ -52,10 +52,10 @@ def train(epoch, rate, model_name, hidden_num, label_number, reader, train_path,
         print("process training epoch %s" % str(i))
         loss_it = []
         for num, (label, mask, seg, token) in tqdm(enumerate(train_loader)):
-            label=label.cuda()
-            mask=mask.cuda()
-            seg=seg.cuda()
-            token=token.cuda()
+            # label=label.cuda()
+            # mask=mask.cuda()
+            # seg=seg.cuda()
+            # token=token.cuda()
             pre, loss = model(label=label, mask=mask, segment=seg, token=token)
             loss.backward()
             loss_it.append(loss.item())
@@ -72,10 +72,10 @@ def train(epoch, rate, model_name, hidden_num, label_number, reader, train_path,
             loader = torch.utils.data.DataLoader(test_set, batch_size=16, shuffle=False)
             print("eval %s" % each)
             for num, (label, mask, seg, token) in tqdm(enumerate(loader)):
-                label=label.cuda()
-                mask=mask.cuda()
-                seg=seg.cuda()
-                token=token.cuda()
+                # label=label.cuda()
+                # mask=mask.cuda()
+                # seg=seg.cuda()
+                # token=token.cuda()
                 pre, loss = model(label=label, mask=mask, segment=seg, token=token)
                 loss_it.append(loss.item())
                 acc(pre, label)
@@ -98,7 +98,7 @@ def main(argvs):
     accuracy = None
     number = None
     loss_func = None
-    os.environ["CUDA_VISIBLE_DEVICES"] = str(FLAGS.GPU)
+    # os.environ["CUDA_VISIBLE_DEVICES"] = str(FLAGS.GPU)
     if FLAGS.Task:
         if FLAGS.Task not in task_function.keys():
             print("Task name not in the glue task name%s" % str(task_function.keys()))

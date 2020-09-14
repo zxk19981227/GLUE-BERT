@@ -9,7 +9,7 @@ class Eval_acc:
     acc的衡量
     """
 
-    def __init__(self, eval_name):
+    def __init__(self):
         self.correct = 0
         self.total = 0
 
@@ -38,7 +38,7 @@ class Eval_F1:
         计算F1的函数
     """
 
-    def __init__(self, eval_name):
+    def __init__(self):
         self.TP = 0
         self.TN = 0
         self.FN = 0
@@ -79,7 +79,7 @@ class Eval_MMS:
         计算F1的函数
     """
 
-    def __init__(self, eval_name):
+    def __init__(self):
         self.TP = 0
         self.TN = 0
         self.FN = 0
