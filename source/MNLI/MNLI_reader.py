@@ -42,6 +42,8 @@ class MNLI_reader(torch.utils.data.Dataset):
                 if len(token)>max_len:
                     max_len=len(token)
                 assert len(token)==len(mask)
+                # print(len(mask))
+                # print(len(segment))
                 assert len(mask)==len(segment)
                 tmp_label.append(label)
                 tmp_mask.append(mask)

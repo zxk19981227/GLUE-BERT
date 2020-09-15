@@ -63,4 +63,4 @@ class SSTB_reader(torch.utils.data.Dataset):
         return self.label.shape[0]
 
 
-# reader=SSTB_reader("../../glue_data/STS-B/dev.tsv")
+reader=SSTB_reader("../../glue_data/STS-B/dev.tsv")
