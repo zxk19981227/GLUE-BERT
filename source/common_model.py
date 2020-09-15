@@ -21,5 +21,5 @@ class Model(torch.nn.Module):
         # out=self.out_layer2(out)#batch,2
         # out=torch.where(mask==1,out,torch.tensor(self.loss_funct.ignore_index))
         # out=self.linear(out)
-        loss=self.loss_funct(out.view(batch_size,-1),label)
+        loss=self.loss_funct(out,label.view(batch_size))
         return out,loss

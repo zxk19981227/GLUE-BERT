@@ -24,9 +24,9 @@ flags.DEFINE_float("learnrate", 5e-5, "the learning recommend to be in 5e-5,4e-5
 flags.DEFINE_integer("learnepoch", 3, "the learning epoch recommend to use")
 flags.DEFINE_string("Bert", "bert-base-uncased", "the bert model decide to use")
 flags.DEFINE_integer("GPU",0,"the GPU number use to train")
-
+flags.DEFINE_integer("batchsize",32,"batch_size to learn")
 def train(epoch, rate, model_name, hidden_num, label_number, reader, train_path, eval_path, loss_function,
-          accuracy_function):
+          accuracy_function,batch_size):
     """
 
     :param epoch:
@@ -45,7 +45,7 @@ def train(epoch, rate, model_name, hidden_num, label_number, reader, train_path,
     model.train()
     optimizer = torch.optim.Adam(model.parameters(),rate)
     train_set = reader(train_path[0])
-    train_loader = torch.utils.data.DataLoader(train_set, batch_size=16, shuffle=True)
+    train_loader = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True)
     acc = accuracy_function()
     acc.reset()
     for i in range(epoch):
@@ -69,7 +69,7 @@ def train(epoch, rate, model_name, hidden_num, label_number, reader, train_path,
         for each in eval_path:
             test_set = reader(each)
             loss_it = []
-            loader = torch.utils.data.DataLoader(test_set, batch_size=16, shuffle=False)
+            loader = torch.utils.data.DataLoader(test_set, batch_size=batch_size, shuffle=False)
             print("eval %s" % each)
             for num, (label, mask, seg, token) in tqdm(enumerate(loader)):
                 label=label.cuda()
@@ -89,7 +89,7 @@ def main(argvs):
                      "MNLI": MNLI_reader, "MRPC": MRPC_reader, "QNLI": QNLI_reader, "QQP": QQP_reader,
                      "STS-B": SSTB_reader,"SNLI":SNLI_reader}
     accuracy_function = {"WNLI": Eval_acc, "SST-2": Eval_acc, "RTE": Eval_acc, "CoLA": Eval_acc, "MNLI": Eval_acc,
-                         "MRPC": Eval_F1, "QNLI": Eval_acc, "QQP": Eval_acc, "STS-B": Eval_MC,"SNLI":Eval_acc}
+                         "MRPC": Eval_F1, "QNLI": Eval_acc, "QQP": Eval_F1, "STS-B": Eval_MC,"SNLI":Eval_acc}
     number_diction = {"SST-2": 2, "RTE": 2, "CoLA": 2, "MNLI": 3, "MRPC": 2, "QNLI": 2, "QQP": 2, "WNLI": 2,"SNLI":3, "STS-B": 1}
     loss_dic = {"SST-2": "crossEntropyLoss", "RTE": "crossEntropyLoss", "CoLA": "crossEntropyLoss",
                 "MNLI": "crossEntropyLoss", "MRPC": "crossEntropyLoss", "QNLI": "crossEntropyLoss",
@@ -110,6 +110,7 @@ def main(argvs):
             loss_func = loss_dic.get(FLAGS.Task)
     else:
         print("must add Task name")
+    batch_size=FLAGS.batchsize
     train_path = "../glue_data/" + str(FLAGS.Task) + "/train.tsv"
     test_path = "../glue_data/" + str(FLAGS.Task) + "/dev.tsv"
     train_path = [train_path]
@@ -119,7 +120,7 @@ def main(argvs):
     train_epoch = FLAGS.learnepoch
     train_rate = FLAGS.learnrate
     train(train_epoch, train_rate, "bert-base-uncased", 768, number, reader_function, train_path, test_path, loss_func,
-          accuracy)
+          accuracy,batch_size)
 
 
 if __name__ == "__main__":
